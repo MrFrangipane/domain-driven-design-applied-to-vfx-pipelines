@@ -9,11 +9,6 @@ class WorkType(StrEnum):
     PUBLISH = "publish"
 
 
-class EntityType(StrEnum):
-    SHOT = "shot"
-    ASSET = "asset"
-
-
 def _require_slug(value: str, field_name: str) -> str:
     value = value.strip()
 
@@ -54,10 +49,6 @@ class Shot:
     sequence: Sequence
     code: str
 
-    @property
-    def entity_type(self) -> EntityType:
-        return EntityType.SHOT
-
     def __post_init__(self) -> None:
         object.__setattr__(self, "code", _require_slug(self.code, "shot.code"))
 
@@ -66,10 +57,6 @@ class Shot:
 class Asset:
     asset_type: str
     name: str
-
-    @property
-    def entity_type(self) -> EntityType:
-        return EntityType.ASSET
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "asset_type", _require_slug(self.asset_type, "asset.asset_type"))

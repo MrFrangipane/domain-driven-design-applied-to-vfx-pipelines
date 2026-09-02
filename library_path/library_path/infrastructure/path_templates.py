@@ -1,53 +1,72 @@
 from dataclasses import dataclass
 
-from library_path.application.builder.path_template_repository import PathTemplateRepository
-from library_path.domain.entities import EntityType, WorkType
+from library_path.domain.entities import Asset, Shot, WorkType
 from library_path.domain.exceptions import PathTemplateNotFoundError
 
 
 @dataclass(frozen=True)
-class InMemoryPathTemplateRepository(PathTemplateRepository):
+class PathTemplates:
     """
-    Simple adapter useful for tests, examples, or local tools.
+    Infrastructure detail.
 
-    In production, this could be replaced by:
-    - YAMLPathTemplateRepository
-    - JsonPathTemplateRepository
-    - ShotGridPathTemplateRepository
-    - DatabasePathTemplateRepository
+    In this intro example, templates are stored in memory.
+
+    In a real studio, this could be replaced with templates loaded from:
+    - YAML;
+    - JSON;
+    - ShotGrid;
+    - Kitsu;
+    - Ftrack;
+    - A database;
+    - A central pipeline configuration package.
     """
 
-    templates: dict[tuple[EntityType, WorkType], str]
+    shot_templates: dict[WorkType, str]
+    asset_templates: dict[WorkType, str]
 
     @classmethod
-    def with_default_vfx_templates(cls) -> "InMemoryPathTemplateRepository":
+    def default_vfx_templates(cls) -> "PathTemplates":
+        """
+        Generates default visual effects (VFX) path templates for shots and assets.
+
+        :rtype: PathTemplates
+        :return: An instance of `PathTemplates` configured with default VFX shot and
+                 asset path templates for both work-in-progress and published files.
+        """
         return cls(
-            templates={
-                (
-                    EntityType.SHOT,
-                    WorkType.WORK,
-                ): "/show/{project}/sequences/{sequence}/shots/{shot}/{task}/work/{version}/{name}_{version}.{extension}",
-                (
-                    EntityType.SHOT,
-                    WorkType.PUBLISH,
-                ): "/show/{project}/sequences/{sequence}/shots/{shot}/{task}/publish/{version}/{name}_{version}.{extension}",
-                (
-                    EntityType.ASSET,
-                    WorkType.WORK,
-                ): "/show/{project}/assets/{asset_type}/{asset}/{task}/work/{version}/{name}_{version}.{extension}",
-                (
-                    EntityType.ASSET,
-                    WorkType.PUBLISH,
-                ): "/show/{project}/assets/{asset_type}/{asset}/{task}/publish/{version}/{name}_{version}.{extension}",
-            }
+            shot_templates={
+                WorkType.WORK: (
+                    "/show/{project}/sequences/{sequence}/shots/{shot}/"
+                    "{task}/work/{version}/{name}_{version}.{extension}"
+                ),
+                WorkType.PUBLISH: (
+                    "/show/{project}/sequences/{sequence}/shots/{shot}/"
+                    "{task}/publish/{version}/{name}_{version}.{extension}"
+                ),
+            },
+            asset_templates={
+                WorkType.WORK: (
+                    "/show/{project}/assets/{asset_type}/{asset}/"
+                    "{task}/work/{version}/{name}_{version}.{extension}"
+                ),
+                WorkType.PUBLISH: (
+                    "/show/{project}/assets/{asset_type}/{asset}/"
+                    "{task}/publish/{version}/{name}_{version}.{extension}"
+                ),
+            },
         )
 
-    def get_template(self, entity_type: EntityType, work_type: WorkType) -> str:
-        key = (entity_type, work_type)
+    def get_template(self, entity: Shot | Asset, work_type: WorkType) -> str:
+        if isinstance(entity, Shot):
+            templates = self.shot_templates
+            entity_name = "shot"
+        else:
+            templates = self.asset_templates
+            entity_name = "asset"
 
         try:
-            return self.templates[key]
+            return templates[work_type]
         except KeyError as error:
             raise PathTemplateNotFoundError(
-                f"No path template found for entity_type={entity_type.value!r}, work_type={work_type.value!r}."
+                f"No path template found for entity={entity_name!r}, work_type={work_type.value!r}."
             ) from error
