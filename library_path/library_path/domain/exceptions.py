@@ -8,3 +8,9 @@ class InvalidPathDataError(LibraryPathError):
 
 class PathTemplateNotFoundError(LibraryPathError):
     """Raised when no path template can be found for a requested use case."""
+
+
+class PathParseError(LibraryPathError):
+    """
+    Raised when a filesystem path does not match any known library path pattern.
+    """

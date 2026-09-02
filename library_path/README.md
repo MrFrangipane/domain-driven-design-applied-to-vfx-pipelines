@@ -6,7 +6,7 @@ It shows how a small VFX pipeline library can be organized using the first ideas
 
 The goal of this package is simple:
 
-> Build valid filesystem paths for shots and assets.
+> Build valid filesystem paths for shots and assets, and parse known library paths back into production data.
 
 For example, given a project, shot, task, version, work type, and file extension, the library can produce a path such as:
 ```
@@ -52,6 +52,7 @@ This package demonstrates a few DDD ideas:
 - **Application use cases** that coordinate one meaningful action.
 - **Infrastructure details** such as path templates.
 - **A public API** that hides the internal organization of the package from other tools.
+- **Round-tripping path data** by building paths from domain objects and parsing valid paths back into domain objects.
 
 The example is deliberately simple, but the structure is close to what you could use in a larger pipeline codebase.
 
@@ -84,6 +85,8 @@ Shot(sequence=Sequence(code="sq010"), code="sh020")
 Task(name="lighting")
 Version(number=12)
 ```
+
+The package also includes `ParsedPath`, which represents the result of reading a known library path back into these domain objects.
 
 These objects are small, but they already express useful rules.
 
@@ -163,17 +166,82 @@ shot = {
 
 The first version is more explicit. It says what the data means.
 
-## Application use case
+## Aggregates
 
-The main use case of this package is:
+Another useful DDD idea is an **Aggregate**.
+
+An Aggregate is a group of related domain objects that are treated as one meaningful whole.
+
+In this package, `ParsedPath` is a small example:
+
+```python
+parsed = parse_path(
+    "/show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/"
+    "dragon_sq010_sh020_lighting_v012.abc"
+)
+```
+
+The result contains the production data described by that path:
+
+```python
+parsed.project
+parsed.entity
+parsed.task
+parsed.version
+parsed.work_type
+parsed.extension
+```
+
+Instead of returning a loose dictionary like this:
+
+```python
+{
+    "project": "dragon",
+    "sequence": "sq010",
+    "shot": "sh020",
+    "task": "lighting",
+    "version": "v012",
+    "work_type": "publish",
+    "extension": "abc",
+}
+```
+
+the package returns one object that keeps the related domain data together.
+
+That object is useful because the rest of the tool can pass around one meaningful result:
+
+```python
+parsed.project.code
+parsed.entity.code
+parsed.task.name
+parsed.version.label
+```
+
+For this small example, `ParsedPath` is not a complex business object. It does not talk to a database, save itself, or manage a long lifecycle.
+
+It simply shows the aggregate idea in a lightweight way:
+
+> When several domain objects belong together for one operation, model that group explicitly.
+
+## Application use cases
+
+The main use cases of this package are:
 
 > Build a path.
 
-The application layer coordinates that operation.
+and:
 
-It does not represent a production concept itself. Instead, it answers a workflow question:
+> Parse a known path.
+
+The application layer coordinates these operations.
+
+It does not represent a production concept itself. Instead, it answers workflow questions:
 
 > Given valid production data, which path should be produced?
+
+and:
+
+> Given a path that matches our templates, what production data does it describe?
 
 A use case is useful because it gives the rest of the software one clear operation to call.
 
@@ -247,6 +315,12 @@ The template is technical configuration. The production meaning belongs to the d
 
 The package also exposes a simpler public API for other tools.
 
+This API is useful because external tools do not need to know about use cases, template classes, or internal folders.
+
+They only need to know what they want to do.
+
+### Building
+
 Instead of forcing a Maya tool, browser, or archiver to know the internal package structure, it can call a simple function:
 
 ```python
@@ -271,7 +345,7 @@ This produces:
 /show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/dragon_sq010_sh020_lighting_v012.abc
 ```
 
-There is also an asset path helper:
+There is also an asset path helper
 
 ```python
 from library_path.api import build_asset_path
@@ -295,9 +369,40 @@ Example output:
 /show/dragon/assets/character/wyvern/modeling/work/v003/dragon_character_wyvern_modeling_v003.ma
 ```
 
-This API is useful because external tools do not need to know about use cases, template classes, or internal folders.
+### Parsing
 
-They only need to know what they want to do.
+The public API can also parse a known library path back into domain data:
+
+```python
+from library_path import parse_path
+
+parsed = parse_path(
+    "/show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/"
+    "dragon_sq010_sh020_lighting_v012.abc"
+)
+
+print(parsed.project.code)
+print(parsed.entity.code)
+print(parsed.task.name)
+print(parsed.version.label)
+print(parsed.work_type.value)
+print(parsed.extension)
+```
+
+Example output:
+
+```text
+dragon
+sh020
+lighting
+v012
+publish
+abc
+```
+
+The returned value is a `ParsedPath`.
+
+`ParsedPath` is a small aggregate-style object: it keeps the parsed project, entity, task, version, work type, and extension together as one result, instead of returning a loose dictionary of strings.
 
 ## Layer responsibilities
 

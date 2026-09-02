@@ -4,6 +4,11 @@ from enum import StrEnum
 from library_path.domain.exceptions import InvalidPathDataError
 
 
+class EntityType(StrEnum):
+    SHOT = "shot"
+    ASSET = "asset"
+
+
 class WorkType(StrEnum):
     WORK = "work"
     PUBLISH = "publish"
@@ -82,3 +87,19 @@ class Version:
     @property
     def label(self) -> str:
         return f"v{self.number:03d}"
+
+
+@dataclass(frozen=True)
+class ParsedPath:
+    """
+    Result of parsing a library path back into domain data.
+
+    The entity can be either a Shot or an Asset.
+    """
+
+    project: Project
+    entity: Shot | Asset
+    task: Task
+    version: Version
+    work_type: WorkType
+    extension: str

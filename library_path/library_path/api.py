@@ -1,8 +1,10 @@
 from pathlib import PurePosixPath
 
 from library_path.application.build_path import BuildPathUseCase
-from library_path.domain.entities import Asset, Project, Sequence, Shot, Task, Version, WorkType
+from library_path.application.parse_path import ParsePathUseCase
+from library_path.domain.entities import Asset, Project, Sequence, Shot, Task, Version, WorkType, ParsedPath
 from library_path.infrastructure.path_templates import PathTemplates
+from library_path.infrastructure.template_path_parser import TemplatePathParser
 
 
 def build_shot_path(
@@ -66,8 +68,22 @@ def build_asset_path(
     )
 
 
+def parse_path(path: str | PurePosixPath) -> ParsedPath:
+    """
+    Public API for parsing a known library path back into domain data.
+    """
+    templates = PathTemplates.default_vfx_templates()
+
+    use_case = ParsePathUseCase(
+        parser=TemplatePathParser(templates=templates),
+    )
+
+    return use_case.execute(path=path)
+
+
 __all__ = [
     "Asset",
+    "ParsedPath",
     "Project",
     "Sequence",
     "Shot",
@@ -76,4 +92,5 @@ __all__ = [
     "WorkType",
     "build_asset_path",
     "build_shot_path",
+    "parse_path",
 ]

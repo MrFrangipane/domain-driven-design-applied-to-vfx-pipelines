@@ -77,9 +77,9 @@ In simple terms, this means the core logic describes what it needs, for example 
 
 Data often crosses layer boundaries using DTOs, or Data Transfer Objects. These are simple objects used to move data between layers without exposing internal domain objects everywhere.
 
-![](docs/010-explicit-architecture-svg.png)
+![Image borrowed from Herberto Graça's Architecture Chronicles. Recommended reading.](docs/010-explicit-architecture-svg.png)
 
-![](docs/070-explicit-architecture-svg.png)
+![Images borrowed from Herberto Graça's Architecture Chronicles. Recommended reading.](docs/070-explicit-architecture-svg.png)
 
 _Images borrowed from [Herberto Graça's Architecture Chronicles](https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/). Recommended reading._
 
