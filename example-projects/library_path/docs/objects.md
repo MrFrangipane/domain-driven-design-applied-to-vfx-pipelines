@@ -30,7 +30,7 @@ This is an important DDD idea:
 
 > Production rules should live close to the production concepts they belong to.
 
-The version formatting rule should not be copied into every publishing tool, browser, or command-line script. It 
+The version formatting rule should not be copied into every publishing tool, browser, or command-line script. It
 belongs to the `Version` concept.
 
 ## Value Objects
@@ -77,7 +77,7 @@ For example, shot `dragon/sq010/sh020` is still the same shot if:
 In this small package, `Shot` and `Asset` are lightweight objects used to build paths. In a larger system, they might
 become richer Entities connected to tracking data, tasks, publishes, dependencies, or review status.
 
-The important lesson is that the code already uses production concepts instead of passing anonymous dictionaries or 
+The important lesson is that the code already uses production concepts instead of passing anonymous dictionaries or
 loose strings everywhere.
 
 Compare this:

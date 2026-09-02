@@ -68,7 +68,7 @@ This produces:
 There is also an asset path helper
 
 ```python
-from library_path.api import build_asset_path
+from library_path import build_asset_path
 
 path = build_asset_path(
     project="dragon",

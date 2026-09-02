@@ -32,7 +32,7 @@ implementation.
 
 The application layer contains use cases.
 
-In this package, the main use case is building a path.
+In this package, the main use cases are building a path and parsing a path.
 
 The application layer coordinates the workflow:
 

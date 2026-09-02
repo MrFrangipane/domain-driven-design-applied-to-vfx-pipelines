@@ -20,6 +20,8 @@ and:
 
 A use case is useful because it gives the rest of the software one clear operation to call.
 
+## Building a path
+
 For example:
 
 ```python
@@ -51,6 +53,80 @@ This produces:
 
 ```text
 /show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/dragon_sq010_sh020_lighting_v012.abc
+```
+
+## Parsing a path
+
+The opposite operation is parsing a known path back into production data:
+
+```python
+from library_path.application.parse_path import ParsePathUseCase
+from library_path.infrastructure.path_templates import PathTemplates
+from library_path.infrastructure.template_path_parser import TemplatePathParser
+
+
+templates = PathTemplates.default_vfx_templates()
+
+parse_path = ParsePathUseCase(
+    parser=TemplatePathParser(templates=templates),
+)
+
+parsed_path = parse_path.execute(
+    "/show/dragon/sequences/sq010/shots/sh020/"
+    "lighting/publish/v012/dragon_sq010_sh020_lighting_v012.abc"
+)
+
+print(parsed_path.project.code)
+print(parsed_path.entity.sequence.code)
+print(parsed_path.entity.code)
+print(parsed_path.task.name)
+print(parsed_path.version.label)
+print(parsed_path.work_type.value)
+print(parsed_path.extension)
+```
+
+This produces:
+
+```text
+dragon
+sq010
+sh020
+lighting
+v012
+publish
+abc
+```
+
+The parser first matches the path against the configured templates.  
+Then the use case turns the captured values into domain objects such as `Project`, `Shot`, `Task`, and `Version`.
+
+The same use case also works for asset paths:
+
+```python
+parsed_path = parse_path.execute(
+    "/show/dragon/assets/character/wyvern/"
+    "model/work/v003/dragon_character_wyvern_model_v003.ma"
+)
+
+print(parsed_path.project.code)
+print(parsed_path.entity.asset_type)
+print(parsed_path.entity.name)
+print(parsed_path.task.name)
+print(parsed_path.version.label)
+print(parsed_path.work_type.value)
+print(parsed_path.extension)
+```
+
+This produces:
+
+```text
+dragon
+character
+wyvern
+model
+v003
+work
+ma
 ```
 
 The use case coordinates the operation, but it does not need to know about Maya, Houdini, Qt, ShotGrid, Ftrack, Kitsu,

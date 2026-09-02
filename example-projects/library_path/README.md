@@ -11,8 +11,7 @@ The goal of this package is simple:
 For example, given a project, shot, task, version, work type, and file extension, the library can produce a path such
 as:
 
-```
-text
+```text
 /show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/dragon_sq010_sh020_lighting_v012.abc
 ```
 
@@ -68,7 +67,7 @@ In this package, the language of the domain is the language of VFX production:
 - A **Project** has a code, such as `dragon`.
 - A **Sequence** has a code, such as `sq010`.
 - A **Shot** belongs to a sequence and has a shot code, such as `sh020`.
-- An **Asset** has an asset type and a name, such as `character/dragon`.
+- An **Asset** has an asset type and a name, such as asset type `character` and name `dragon`.
 - A **Task** describes the department or work area, such as `modeling`, `rigging`, `animation`, or `lighting`.
 - A **Version** represents a numbered version and is formatted as `v001`, `v002`, `v003`, and so on.
 - A **Work Type** describes whether the path is for work-in-progress data or published data.
@@ -93,7 +92,7 @@ The following pages explain the concepts in more detail.
 - Build a Path
 - Parse a Path
 
-**[Layer responsibilities](docs/layer-responsabilities.md)**
+**[Layer responsibilities](docs/layer-responsibilities.md)**
 
 - Domain
 - Application
@@ -105,7 +104,7 @@ The following pages explain the concepts in more detail.
 - Infrastructure
 - Public API
 
-**[Further considerations](docs/considerations.md)**
+**[Further considerations](docs/further-considerations.md)**
 
 - Why not just format strings directly?
 - What to notice as a TD or developer
