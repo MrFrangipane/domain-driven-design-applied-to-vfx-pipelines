@@ -45,6 +45,10 @@ domain-driven-design-applied-to-vfx-pipelines/
 - Bounded Contexts
 - Application, domain, infrastructure, and presentation layers
 
+### [A demo folder structure](demo-folder-structure/)
+
+[A text file](demo-folder-structure/) that shows a demo folder structure for a project. That structure is used by the examples in this repository.
+
 ### [First example: A Path Library](example-projects/library_path/)
 
 [A Python project](example-projects/library_path/) that contains code examples that demonstrates how to separate production

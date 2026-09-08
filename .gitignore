@@ -2,3 +2,6 @@
 .junie/
 ai/
 __pycache__
+.venv
+venv/
+env/

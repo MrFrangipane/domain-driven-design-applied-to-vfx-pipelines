@@ -7,8 +7,7 @@ from archiver.rules.entities import RuleContext, RuleDecision
 
 
 class ArchiveRule(Protocol):
-    def evaluate(self, context: RuleContext) -> RuleDecision:
-        pass
+    def evaluate(self, context: RuleContext) -> RuleDecision: ...
 
 
 class ArchiveWorkFilesRule:

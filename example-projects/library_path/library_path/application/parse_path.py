@@ -50,7 +50,7 @@ class ParsePathUseCase:
         raise PathParseError(f"Path does not match any known Entity Type: {parsed_values.entity_type}.")
 
     def _build_shot_result(self, values: dict[str, str], work_type: WorkType) -> ParsedPath:
-        path = ParsedPath(
+        return ParsedPath(
             project=Project(code=values["project"]),
             entity=Shot(
                 sequence=Sequence(code=values["sequence"]),
@@ -61,10 +61,9 @@ class ParsePathUseCase:
             work_type=work_type,
             extension=values["extension"],
         )
-        return path
 
     def _build_asset_result(self, values: dict[str, str], work_type: WorkType) -> ParsedPath:
-        path = ParsedPath(
+        return ParsedPath(
             project=Project(code=values["project"]),
             entity=Asset(
                 asset_type=values["asset_type"],
@@ -75,7 +74,6 @@ class ParsePathUseCase:
             work_type=work_type,
             extension=values["extension"],
         )
-        return path
 
     def _parse_version_number(self, version_label: str) -> int:
         return int(version_label.removeprefix("v"))

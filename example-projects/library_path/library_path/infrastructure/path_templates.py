@@ -47,11 +47,11 @@ class PathTemplates:
             asset_templates={
                 WorkType.WORK: (
                     "show/{project}/assets/{asset_type}/{asset}/{task}/work/{version}/"
-                    "{project}_{sequence}_{shot}_{task}_{version}.{extension}"
+                    "{project}_{asset_type}_{asset}_{task}_{version}.{extension}"
                 ),
                 WorkType.PUBLISH: (
                     "show/{project}/assets/{asset_type}/{asset}/{task}/publish/{version}/"
-                    "{project}_{sequence}_{shot}_{task}_{version}.{extension}"
+                    "{project}_{asset_type}_{asset}_{task}_{version}.{extension}"
                 ),
             },
         )
