@@ -2,11 +2,50 @@
 
 ## Quick summary: Domain-Driven Design
 
-**Domain-Driven Design**, or **DDD**, is an approach to software design that focuses on understanding the problem domain before designing the technical solution.
+**Domain-Driven Design**, or **DDD**, is an approach to software design that focuses on understanding the **problem domain** before designing the **technical solution**.
 
 In VFX pipeline work, the domain might be publishing, asset management, shot production, rendering, review, delivery, or scheduling.
 
 Instead of starting with databases, frameworks, file paths, or UI widgets, DDD encourages teams to model software around the real production concepts, rules, workflows, and language used by the people doing the work.
+
+### Suggested team workflow
+
+When applying DDD as a team, it can help to split the work into two clear phases.
+
+#### 1. Focus on the problem
+
+Start by understanding the production problem before discussing implementation details.
+
+This phase should involve the people who understand the work: artists, TDs, pipeline developers, supervisors, coordinators, and production stakeholders.
+
+The goal is not to design classes or databases yet. The goal is to build a **shared understanding** of the real workflow and agree on the language used to describe it.
+
+A useful activity for this is an **event-storming** session, where the team maps out what happens in the workflow using domain language.
+
+For example:
+
+- what events happen in the pipeline;
+- who or what triggers those events;
+- what decisions or rules are involved;
+- what information is needed at each step;
+- where confusion, manual work, or repeated mistakes happen;
+- which words mean different things to different teams.
+
+#### 2. Focus on the solution
+
+Once the problem is understood, move into solution design and implementation.
+
+At this stage, the team can decide:
+
+- which concepts belong in the domain model;
+- which rules should be enforced by the domain layer;
+- which workflows should become application use cases;
+- which external systems belong in infrastructure;
+- which parts should be exposed through a UI, CLI, tool, or public API.
+
+Then the team can start coding in small steps, using the shared domain language from the problem phase.
+
+The important point is that the code should reflect the model discovered with the team, rather than starting from technical concerns such as folders, databases, frameworks, or UI screens.
 
 ### Key ideas
 

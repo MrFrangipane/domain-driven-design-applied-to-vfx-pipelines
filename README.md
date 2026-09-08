@@ -36,7 +36,7 @@ domain-driven-design-applied-to-vfx-pipelines/
 
 ### [Quick summary: Domain-Driven Design](docs/quick-summary.md)
 
-[A document](docs/quick-summary.md) that introduces the following concepts:
+[A document](docs/quick-summary.md) that suggests a team workflow and introduces the following concepts:
 
 - Domain-Driven Design
 - Ubiquitous Language
