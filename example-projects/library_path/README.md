@@ -60,6 +60,26 @@ This package demonstrates a few DDD ideas:
 
 The example is deliberately simple, but the structure is close to what you could use in a larger pipeline codebase.
 
+External tools usually interact with the package through a configured `LibraryPath` instance:
+
+```python
+from library_path import LibraryPath
+
+library_path = LibraryPath.default()
+
+path = library_path.build_shot_path(
+    project="dragon",
+    sequence="sq010",
+    shot="sh020",
+    task="lighting",
+    version=12,
+    work_type="publish",
+    extension="abc",
+)
+
+print(path.as_posix())
+```
+
 ## The domain language
 
 In this package, the language of the domain is the language of VFX production:

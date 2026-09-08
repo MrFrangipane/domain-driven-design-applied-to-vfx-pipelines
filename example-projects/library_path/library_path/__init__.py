@@ -1,5 +1,6 @@
 from library_path.api import (
     Asset,
+    LibraryPath,
     ParsedPath,
     Project,
     Sequence,
@@ -7,13 +8,13 @@ from library_path.api import (
     Task,
     Version,
     WorkType,
-    build_asset_path,
-    build_shot_path,
-    parse_path,
 )
+from library_path.domain.exceptions import LibraryPathError
 
 __all__ = [
     "Asset",
+    "LibraryPath",
+    "LibraryPathError",
     "ParsedPath",
     "Project",
     "Sequence",
@@ -21,7 +22,4 @@ __all__ = [
     "Task",
     "Version",
     "WorkType",
-    "build_asset_path",
-    "build_shot_path",
-    "parse_path",
 ]

@@ -47,7 +47,7 @@ Then the team can start coding in small steps, using the shared domain language 
 
 The important point is that the code should reflect the model discovered with the team, rather than starting from technical concerns such as folders, databases, frameworks, or UI screens.
 
-### Key ideas
+### Key ideas of DDD
 
 - **Domain**: the area of work the software is about.
 - **Ubiquitous Language**: a shared vocabulary used by TDs, developers, artists, supervisors, coordinators, and production teams.

@@ -36,22 +36,22 @@ class PathTemplates:
         return cls(
             shot_templates={
                 WorkType.WORK: (
-                    "/show/{project}/sequences/{sequence}/shots/{shot}/"
-                    "{task}/work/{version}/{name}_{version}.{extension}"
+                    "show/{project}/sequences/{sequence}/shots/{shot}/{task}/work/{version}/"
+                    "{project}_{sequence}_{shot}_{task}_{version}.{extension}"
                 ),
                 WorkType.PUBLISH: (
-                    "/show/{project}/sequences/{sequence}/shots/{shot}/"
-                    "{task}/publish/{version}/{name}_{version}.{extension}"
+                    "show/{project}/sequences/{sequence}/shots/{shot}/{task}/publish/{version}/"
+                    "{project}_{sequence}_{shot}_{task}_{version}.{extension}"
                 ),
             },
             asset_templates={
                 WorkType.WORK: (
-                    "/show/{project}/assets/{asset_type}/{asset}/"
-                    "{task}/work/{version}/{name}_{version}.{extension}"
+                    "show/{project}/assets/{asset_type}/{asset}/{task}/work/{version}/"
+                    "{project}_{sequence}_{shot}_{task}_{version}.{extension}"
                 ),
                 WorkType.PUBLISH: (
-                    "/show/{project}/assets/{asset_type}/{asset}/"
-                    "{task}/publish/{version}/{name}_{version}.{extension}"
+                    "show/{project}/assets/{asset_type}/{asset}/{task}/publish/{version}/"
+                    "{project}_{sequence}_{shot}_{task}_{version}.{extension}"
                 ),
             },
         )

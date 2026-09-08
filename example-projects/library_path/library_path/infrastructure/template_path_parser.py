@@ -66,21 +66,29 @@ class TemplatePathParser:
 
     def _template_to_regex(self, template: str) -> str:
         field_patterns = {
-            "project": r"(?P<project>[^/]+)",
-            "sequence": r"(?P<sequence>[^/]+)",
-            "shot": r"(?P<shot>[^/]+)",
-            "asset_type": r"(?P<asset_type>[^/]+)",
-            "asset": r"(?P<asset>[^/]+)",
-            "task": r"(?P<task>[^/]+)",
-            "version": r"(?P<version>v\d+)",
-            "name": r"(?P<name>[^/]+)",
-            "extension": r"(?P<extension>[^/.]+)",
+            "project": r"[^/]+",
+            "sequence": r"[^/]+",
+            "shot": r"[^/]+",
+            "asset_type": r"[^/]+",
+            "asset": r"[^/]+",
+            "task": r"[^/]+",
+            "version": r"v\d+",
+            "name": r"[^/]+",
+            "extension": r"[^/.]+",
         }
 
-        pattern = re.escape(template)
+        seen_fields: set[str] = set()
 
-        for field_name, field_pattern in field_patterns.items():
-            escaped_field = re.escape("{" + field_name + "}")
-            pattern = pattern.replace(escaped_field, field_pattern)
+        def replace_field(match: re.Match[str]) -> str:
+            field_name = match.group(1)
 
-        return pattern
+            if field_name not in field_patterns:
+                return re.escape(match.group(0))
+
+            if field_name in seen_fields:
+                return rf"(?P={field_name})"
+
+            seen_fields.add(field_name)
+            return rf"(?P<{field_name}>{field_patterns[field_name]})"
+
+        return re.sub(r"\{([a-zA-Z_][a-zA-Z0-9_]*)\}", replace_field, template)

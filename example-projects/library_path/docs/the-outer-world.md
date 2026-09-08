@@ -36,17 +36,38 @@ The package also exposes a simpler public API for other tools.
 
 This API is useful because external tools do not need to know about use cases, template classes, or internal folders.
 
-They only need to know what they want to do.
+They only need to create a `LibraryPath` instance and call methods for the operation they want to perform.
+
+A tool can use the default VFX templates:
+
+```python
+from library_path import LibraryPath
+
+library_path = LibraryPath.default()
+```
+
+Or it can create an instance from explicit templates:
+
+```python
+from library_path import LibraryPath
+from library_path.infrastructure.path_templates import PathTemplates
+
+library_path = LibraryPath.from_templates(
+    PathTemplates.a_way_to_create_templates(),
+)
+```
 
 ### Building
 
-Instead of forcing a Maya tool, browser, or archiver to know the internal package structure, it can call a simple
-function:
+Instead of forcing a Maya tool, browser, or archiver to know the internal package structure, it can call a method on the
+public API object:
 
 ```python
-from library_path import build_shot_path
+from library_path import LibraryPath
 
-path = build_shot_path(
+library_path = LibraryPath.default()
+
+path = library_path.build_shot_path(
     project="dragon",
     sequence="sq010",
     shot="sh020",
@@ -62,15 +83,17 @@ print(path.as_posix())
 This produces:
 
 ```text
-/show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/dragon_sq010_sh020_lighting_v012.abc
+show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/dragon_sq010_sh020_lighting_v012.abc
 ```
 
-There is also an asset path helper
+There is also an asset path method:
 
 ```python
-from library_path import build_asset_path
+from library_path import LibraryPath
 
-path = build_asset_path(
+library_path = LibraryPath.default()
+
+path = library_path.build_asset_path(
     project="dragon",
     asset_type="character",
     asset="wyvern",
@@ -94,10 +117,12 @@ Example output:
 The public API can also parse a known library path back into domain data:
 
 ```python
-from library_path import parse_path
+from library_path import LibraryPath
 
-parsed = parse_path(
-    "/show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/"
+library_path = LibraryPath.default()
+
+parsed = library_path.parse_path(
+    "show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/"
     "dragon_sq010_sh020_lighting_v012.abc"
 )
 

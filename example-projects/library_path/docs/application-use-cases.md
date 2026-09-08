@@ -10,7 +10,10 @@ and:
 
 The application layer coordinates these operations.
 
-It does not represent a production concept itself. Instead, it answers workflow questions:
+External tools normally use the public `LibraryPath` API class instead of constructing these use cases directly. This page
+shows the use cases to explain how the application layer works internally.
+
+It does **not represent a production concept itself**. Instead, it answers workflow questions:
 
 > Given valid production data, which path should be produced?
 
