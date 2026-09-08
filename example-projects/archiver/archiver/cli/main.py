@@ -6,7 +6,8 @@ from library_path import LibraryPath
 
 from archiver.analysis.infrastructure.filesystem import FilesystemScanner
 from archiver.analysis.use_cases import BuildArchivePlanUseCase
-from archiver.rules.policies import ArchiveWorkFilesRule, FirstMatchingRulePolicy
+from archiver.rules.archive_rules import ArchiveWorkFilesRule
+from archiver.rules.policies import FirstMatchingRulePolicy
 
 
 def build_archive_plan_use_case() -> BuildArchivePlanUseCase:

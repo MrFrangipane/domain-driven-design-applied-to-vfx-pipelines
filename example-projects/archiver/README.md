@@ -23,6 +23,8 @@ archiver/
   rules/
     __init__.py
     entities.py
+    ports.py
+    archive_rules.py
     policies.py
 
   cli/
@@ -31,7 +33,6 @@ archiver/
 
   __init__.py
 ```
-
 
 ## Core idea
 
