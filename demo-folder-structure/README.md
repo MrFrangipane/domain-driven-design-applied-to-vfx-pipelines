@@ -1,8 +1,8 @@
 # Demo Folder Structure
 
 This is a demo folder structure for a project.
-```
-text
+
+```text
 show/
 └── an-awesome-show/
     ├── assets/
