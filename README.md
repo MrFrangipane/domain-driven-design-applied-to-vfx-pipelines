@@ -34,7 +34,7 @@ domain-driven-design-applied-to-vfx-pipelines/
 └── README.md               this file
 ```
 
-### [Quick summary: Domain-Driven Design](docs/quick-summary.md)
+### 0. [Quick summary: Domain-Driven Design](docs/quick-summary.md)
 
 [A document](docs/quick-summary.md) that suggests a team workflow and introduces the following concepts:
 
@@ -45,11 +45,7 @@ domain-driven-design-applied-to-vfx-pipelines/
 - Bounded Contexts
 - Application, domain, infrastructure, and presentation layers
 
-### [A demo folder structure](demo-folder-structure/)
-
-[A text file](demo-folder-structure/) that shows a demo folder structure for a project. That structure is used by the examples in this repository.
-
-### [First example: A Path Library](example-projects/library_path/)
+### 1. [First example: A Path Library](example-projects/library_path/)
 
 [A Python project](example-projects/library_path/) that contains code examples that demonstrates how to separate production
 concepts and rules from UI, filesystem, and external service concerns.
@@ -57,6 +53,14 @@ concepts and rules from UI, filesystem, and external service concerns.
 The examples are organized to show how these parts can be separated, ensuring that production rules do not get buried
 inside UI or infrastructure code.
 
-### [Second example: A CLI tool for archiving](example-projects/archiver/)
+### 2. [Second example: A CLI Archiver](example-projects/archiver/)
 
 [A Python project](example-projects/archiver/) that contains code examples that demonstrates ...
+
+### 3. [Third example: A GUI Asset Browser](example-projects/browser/)
+
+[A Python project](example-projects/browser/) that contains code examples that demonstrates ...
+
+### 4. [A demo folder structure](demo-folder-structure/)
+
+[A text file](demo-folder-structure/) that shows a demo folder structure for a project. That structure is used by the examples in this repository.
