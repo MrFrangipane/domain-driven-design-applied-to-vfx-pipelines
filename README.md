@@ -25,6 +25,8 @@ The repository is organized as follows:
 
 ```text
 domain-driven-design-applied-to-vfx-pipelines/
+├── demo-folder-structure/  a demo folder structure for a project
+│   └── ...
 ├── docs/
 │   └── quick-summary.md    a quick introduction to DDD
 ├── example-projects/
