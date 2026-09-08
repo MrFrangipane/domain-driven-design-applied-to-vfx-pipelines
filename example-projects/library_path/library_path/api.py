@@ -2,7 +2,17 @@ from pathlib import PurePosixPath
 
 from library_path.application.build_path import BuildPathUseCase
 from library_path.application.parse_path import ParsePathUseCase
-from library_path.domain.entities import Asset, ParsedPath, Project, Sequence, Shot, Task, Version, WorkType
+from library_path.domain.entities import (
+    Asset,
+    ParsedPath,
+    Project,
+    Sequence,
+    Shot,
+    Task,
+    TaskVersionIdentity,
+    Version,
+    WorkType,
+)
 from library_path.infrastructure.path_templates import PathTemplates
 from library_path.infrastructure.template_path_parser import TemplatePathParser
 
@@ -87,6 +97,7 @@ __all__ = [
     "Sequence",
     "Shot",
     "Task",
+    "TaskVersionIdentity",
     "Version",
     "WorkType",
 ]

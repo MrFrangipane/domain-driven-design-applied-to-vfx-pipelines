@@ -90,16 +90,20 @@ class Version:
 
 
 @dataclass(frozen=True)
+class TaskVersionIdentity:
+    project: Project
+    entity: Shot | Asset
+    task: Task
+    version: Version
+    work_type: WorkType
+
+
+@dataclass(frozen=True)
 class ParsedPath:
     """
     Result of parsing a library path back into domain data.
 
     The entity can be either a Shot or an Asset.
     """
-
-    project: Project
-    entity: Shot | Asset
-    task: Task
-    version: Version
-    work_type: WorkType
     extension: str
+    identity: TaskVersionIdentity

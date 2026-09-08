@@ -2,13 +2,15 @@ from pathlib import PurePosixPath
 
 from library_path.domain.entities import (
     Asset,
+    EntityType,
     ParsedPath,
     Project,
     Sequence,
     Shot,
     Task,
+    TaskVersionIdentity,
     Version,
-    WorkType, EntityType,
+    WorkType,
 )
 from library_path.domain.exceptions import PathParseError
 from library_path.infrastructure.template_path_parser import TemplatePathParser
@@ -51,28 +53,32 @@ class ParsePathUseCase:
 
     def _build_shot_result(self, values: dict[str, str], work_type: WorkType) -> ParsedPath:
         return ParsedPath(
-            project=Project(code=values["project"]),
-            entity=Shot(
-                sequence=Sequence(code=values["sequence"]),
-                code=values["shot"],
-            ),
-            task=Task(name=values["task"]),
-            version=Version(number=self._parse_version_number(values["version"])),
-            work_type=work_type,
             extension=values["extension"],
+            identity=TaskVersionIdentity(
+                project=Project(code=values["project"]),
+                entity=Shot(
+                    sequence=Sequence(code=values["sequence"]),
+                    code=values["shot"],
+                ),
+                task=Task(name=values["task"]),
+                version=Version(number=self._parse_version_number(values["version"])),
+                work_type=work_type,
+            ),
         )
 
     def _build_asset_result(self, values: dict[str, str], work_type: WorkType) -> ParsedPath:
         return ParsedPath(
-            project=Project(code=values["project"]),
-            entity=Asset(
-                asset_type=values["asset_type"],
-                name=values["asset"],
-            ),
-            task=Task(name=values["task"]),
-            version=Version(number=self._parse_version_number(values["version"])),
-            work_type=work_type,
             extension=values["extension"],
+            identity=TaskVersionIdentity(
+                project=Project(code=values["project"]),
+                entity=Asset(
+                    asset_type=values["asset_type"],
+                    name=values["asset"],
+                ),
+                task=Task(name=values["task"]),
+                version=Version(number=self._parse_version_number(values["version"])),
+                work_type=work_type,
+            ),
         )
 
     def _parse_version_number(self, version_label: str) -> int:
