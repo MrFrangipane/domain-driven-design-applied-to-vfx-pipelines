@@ -26,6 +26,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
+    "library-path",
     "PySide6>=6.11.2",
 ]
 
@@ -51,3 +52,6 @@ line-ending = "auto"
 
 [tool.setuptools.packages.find]
 include = ["archiver*"]
+
+[tool.uv.sources]
+library-path = { path = "../library_path", editable = true }
