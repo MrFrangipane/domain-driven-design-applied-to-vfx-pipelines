@@ -49,15 +49,35 @@ domain-driven-design-applied-to-vfx-pipelines/
 
 ### 1. [First example: A Path Library](example-projects/pipeline_path/)
 
-[A Python project](example-projects/pipeline_path/) that contains code examples that demonstrates how to separate production
-concepts and rules from UI, filesystem, and external service concerns.
+[A Python library](example-projects/pipeline_path/) that teaches the basic layered package shape:
+- `domain/`
+- `application/`
+- `infrastructure/`
+- `api.py`
 
-The examples are organized to show how these parts can be separated, ensuring that production rules do not get buried
-inside UI or infrastructure code.
+This example is intentionally small. It uses pipeline paths as a familiar production concept to show how DDD separates
+the meaning of the work from the technical details of string formatting and parsing.
+
+In DDD terms, `pipeline_path` is a first bounded context: it defines the language of projects, shots, assets, tasks,
+versions, and work types. The goal is not just to build paths, but to make those production concepts explicit in 
+the code.
 
 ### 2. [Second example: A CLI Archiver](example-projects/archiver/)
 
-[A Python project](example-projects/archiver/) that contains code examples that demonstrates ...
+[A Python project](example-projects/archiver/) that teaches a slightly more feature-oriented/domain-oriented 
+application shape:
+- `application/`
+- `scanning/`
+- `rules/`
+- `planning/`
+- `cli/`
+
+This example builds on the path library and shows a larger workflow. The archiver is not mainly about moving files; 
+it is about deciding which production files are safe or meaningful to archive.
+
+In DDD terms, the archiver introduces another bounded context with its own language: archive candidates, archive rules,
+decisions, policies, and archive plans. It shows how an application can coordinate domain rules without hiding those
+rules inside command-line, filesystem, or JSON-output code.
 
 ### 3. [Third example: A GUI Asset Browser](example-projects/browser/)
 
@@ -65,4 +85,5 @@ inside UI or infrastructure code.
 
 ### 4. [A demo folder structure](demo-folder-structure/)
 
-[A text file](demo-folder-structure/) that shows a demo folder structure for a project. That structure is used by the examples in this repository.
+[A folder](demo-folder-structure/) and a [README.md](demo-folder-structure/README.md) that shows a demo folder 
+structure for a project. That structure is used by the examples in this repository.

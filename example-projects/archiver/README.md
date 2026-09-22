@@ -8,9 +8,12 @@ The current implementation only builds and prints the plan. It does not move, co
 
 ## Folder structure
 
-```
-plain text
+```plain text
 archiver/
+  application/
+    __init__.py
+    build_archive_plan.py
+
   cli/
     __init__.py
     main.py
@@ -23,6 +26,7 @@ archiver/
 
   rules/
     __init__.py
+    archive_policy.py
     archive_rules.py
     decision_resolver.py
     entities.py
@@ -32,10 +36,25 @@ archiver/
     __init__.py
     filesystem.py
     ports.py
-    use_cases.py
 
-  __init__.py
+__init__.py
 ```
+
+### Note regarding DDD and folder structures
+
+Unlike `pipeline_path`, `archiver` is organized by workflow area instead of by technical layer.
+
+This is intentional.
+
+`pipeline_path` is small enough that domain/application/infrastructure folders are easy to see. 
+Archiver has several related subdomains: scanning, rules, and planning. Each folder contains the entities, ports,
+and implementations that belong to that area.
+
+The same dependency rule still applies:
+- CLI is outside.
+- Filesystem scanning is infrastructure-like.
+- Archive rules and planning objects are core application/domain concepts.
+- The use case coordinates the workflow.
 
 ## Core idea
 
@@ -126,15 +145,19 @@ If the final decision is to archive a candidate, the resolver asks an archive pa
 ## Package responsibilities
 
 ```plain text
+application/
+  Application use case that coordinates scanning files, evaluating rules,
+  resolving archive decisions, and building the archive plan.
+
 cli/
   Command-line entry point and dependency wiring.
 
 scanning/
-  File discovery and the use case that builds an archive plan.
+  File discovery interfaces and filesystem implementation.
 
 rules/
   Archive candidate objects, rule interfaces, rule implementations,
-  rule policy, and decision resolution.
+  archive policy, and decision resolution.
 
 planning/
   Archive plan objects and archive destination path building.

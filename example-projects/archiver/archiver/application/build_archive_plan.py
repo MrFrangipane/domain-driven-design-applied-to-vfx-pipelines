@@ -3,7 +3,7 @@ from pathlib import Path
 from pipeline_path import PipelinePath, PipelinePathError
 
 from archiver.planning.entities import ArchivePlan, ArchivePlanItem
-from archiver.rules.decision_resolver import ArchiveRulePolicy
+from archiver.rules.archive_policy import ArchiveRulePolicy
 from archiver.rules.entities import ArchiveCandidate
 from archiver.scanning.filesystem import FilesystemScanner
 
