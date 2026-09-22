@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 
@@ -6,7 +7,7 @@ from pathlib import Path, PurePosixPath
 class ArchivePlanItem:
     source_path: Path
     archive_path: PurePosixPath
-    reason: str
+    reasons: Sequence[str]
 
 
 @dataclass(frozen=True)

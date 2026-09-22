@@ -1,15 +1,32 @@
-from abc import ABC, abstractmethod
+from typing import Protocol, Sequence
 
-from archiver.rules.entities import RuleContext, RuleDecision
+from archiver.rules.entities import ArchiveCandidate, ArchiveDecision
 
 
-class ArchiveRulePort(ABC):
+class CandidateRule(Protocol):
     """
-    Port for archive rules.
+    Rule that evaluates one archive candidate.
 
-    Implementations decide whether a parsed file should be archived.
+    Example:
+    - ArchiveWorkFilesRule
     """
 
-    @abstractmethod
-    def evaluate(self, context: RuleContext) -> RuleDecision:
-        raise NotImplementedError
+    def evaluate(self, candidate: ArchiveCandidate) -> ArchiveDecision | None:
+        ...
+
+
+class CandidateSetRule(Protocol):
+    """
+    Rule that evaluates a collection of archive candidates.
+
+    Example:
+    - KeepLastThreeVersionsRule
+    - KeepOneCachePerFrameRangeRule
+    - KeepLatestPublishPerDepartmentRule
+    """
+
+    def evaluate(
+        self,
+        candidates: Sequence[ArchiveCandidate],
+    ) -> Sequence[ArchiveDecision]:
+        ...

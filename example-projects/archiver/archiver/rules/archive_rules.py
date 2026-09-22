@@ -1,31 +1,75 @@
-from pathlib import PurePosixPath
+from collections import defaultdict
+from collections.abc import Sequence
 
-from pipeline_path import WorkType
+from pipeline_path import VersionFamilyKey, WorkType
 
-from archiver.rules.entities import RuleContext, RuleDecision
-from archiver.rules.ports import ArchiveRulePort
+from archiver.rules.entities import ArchiveCandidate, ArchiveDecision, ArchiveMark
 
 
-class ArchiveWorkFilesRule(ArchiveRulePort):
-    def __init__(self, archive_root: str = "/archive") -> None:
-        self._archive_root = PurePosixPath(archive_root)
+class ArchiveWorkFilesRule:
+    """
+    Single rule.
 
-    def evaluate(self, context: RuleContext) -> RuleDecision:
-        if context.parsed_path.identity.work_type != WorkType.WORK:
-            return RuleDecision(
-                should_archive=False,
-                reason="Only work files are archived.",
+    Matches only files of the Work type.
+    """
+    def evaluate(self, candidate: ArchiveCandidate) -> ArchiveDecision | None:
+        if candidate.parsed_path.identity.work_type != WorkType.WORK:
+            return ArchiveDecision(
+                candidate=candidate,
+                mark=ArchiveMark.DO_NOT_ARCHIVE,
+                reason="Is not of Work type",
             )
 
-        source_pipeline_path = PurePosixPath(context.source_path.as_posix())
-
-        if source_pipeline_path.is_absolute():
-            source_pipeline_path = source_pipeline_path.relative_to("/")
-
-        archive_path = self._archive_root / source_pipeline_path
-
-        return RuleDecision(
-            should_archive=True,
-            archive_path=archive_path,
-            reason="Work file matched archive policy.",
+        return ArchiveDecision(
+            candidate=candidate,
+            mark=ArchiveMark.ARCHIVABLE,
+            reason="Is of Work type",
         )
+
+
+class KeepLastVersionsRule:
+    """
+    Collection rule.
+
+    Groups candidates by VersionFamilyKey and protects the latest three versions
+    in each family.
+    """
+    def __init__(self, number_of_versions_to_keep):
+        self.number_of_versions_to_keep = number_of_versions_to_keep
+
+    def evaluate(
+        self,
+        candidates: Sequence[ArchiveCandidate],
+    ) -> Sequence[ArchiveDecision]:
+        by_family: dict[VersionFamilyKey, list[ArchiveCandidate]] = defaultdict(list)
+
+        for candidate in candidates:
+            by_family[candidate.parsed_path.identity.version_family_key].append(candidate)
+
+        decisions: list[ArchiveDecision] = []
+
+        for family_candidates in by_family.values():
+            candidates_sorted_by_version = sorted(
+                family_candidates,
+                key=lambda candidate_: candidate_.parsed_path.identity.version.number,
+            )
+
+            for candidate_to_exclude in candidates_sorted_by_version[:-self.number_of_versions_to_keep]:
+                decisions.append(
+                    ArchiveDecision(
+                        candidate=candidate_to_exclude,
+                        mark=ArchiveMark.DO_NOT_ARCHIVE,
+                        reason=f"Not in the latest {self.number_of_versions_to_keep} versions in its version family.",
+                    )
+                )
+
+            for candidate_to_keep in candidates_sorted_by_version[-self.number_of_versions_to_keep:]:
+                decisions.append(
+                    ArchiveDecision(
+                        candidate=candidate_to_keep,
+                        mark=ArchiveMark.ARCHIVABLE,
+                        reason=f"One of the latest {self.number_of_versions_to_keep} versions in its version family.",
+                    )
+                )
+
+        return decisions

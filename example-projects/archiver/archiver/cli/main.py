@@ -6,19 +6,23 @@ from pipeline_path import PipelinePath
 
 from archiver.analysis.infrastructure.filesystem import FilesystemScanner
 from archiver.analysis.use_cases import BuildArchivePlanUseCase
-from archiver.rules.archive_rules import ArchiveWorkFilesRule
-from archiver.rules.policies import FirstMatchingRulePolicy
+from archiver.rules.archive_rules import ArchiveWorkFilesRule, KeepLastVersionsRule
+from archiver.rules.decision_resolver import ArchiveDecisionResolver, ArchiveRulePolicy
 
 
 def build_archive_plan_use_case() -> BuildArchivePlanUseCase:
-    rule_policy = FirstMatchingRulePolicy(
-        rules=[
-            ArchiveWorkFilesRule(archive_root="/archive"),
-        ]
+    rule_policy = ArchiveRulePolicy(
+        candidate_rules=[
+            ArchiveWorkFilesRule(),
+        ],
+        candidate_set_rules=[
+            KeepLastVersionsRule(number_of_versions_to_keep=2),
+        ],
+        resolver=ArchiveDecisionResolver(),
     )
 
     return BuildArchivePlanUseCase(
-        pipeline_path=PipelinePath.default(),
+        pipeline_path_api=PipelinePath.default(),
         rule_policy=rule_policy,
         scanner=FilesystemScanner(),
     )
@@ -46,7 +50,7 @@ def main() -> None:
             {
                 "source_path": item.source_path.as_posix(),
                 "archive_path": item.archive_path.as_posix(),
-                "reason": item.reason,
+                "reasons": item.reasons,
             }
             for item in plan.items
         ],
@@ -56,4 +60,6 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    # import logging
+    # logging.basicConfig(level=logging.DEBUG)
     main()
