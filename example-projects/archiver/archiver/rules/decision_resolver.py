@@ -1,7 +1,7 @@
 import logging
 from collections.abc import Sequence
-from pathlib import PurePosixPath
 
+from archiver.archive.ports import ArchivePathBuilder
 from archiver.rules.entities import ArchiveCandidate, ArchiveDecision, ArchiveMark, ResolvedArchiveDecision
 from archiver.rules.ports import CandidateRule, CandidateSetRule
 
@@ -18,6 +18,9 @@ class ArchiveDecisionResolver:
     - A candidate is not archived if any rule marks it DO_NOT_ARCHIVE.
     - DO_NOT_ARCHIVE wins over ARCHIVABLE.
     """
+
+    def __init__(self, archive_path_builder: ArchivePathBuilder) -> None:
+        self._archive_path_builder = archive_path_builder
 
     def resolve(
         self,
@@ -61,6 +64,11 @@ class ArchiveDecisionResolver:
         )
 
         should_archive = has_archiveable_decision and not has_do_not_archive_decision
+        archive_path = (
+            self._archive_path_builder.build_archive_path(candidate)
+            if should_archive
+            else None
+        )
 
         logger.debug(
             "Resolved candidate %r: should_archive=%s, has_archiveable_decision=%s, has_do_not_archive_decision=%s",
@@ -73,7 +81,7 @@ class ArchiveDecisionResolver:
         return ResolvedArchiveDecision(
             candidate=candidate,
             should_archive=should_archive,
-            archive_path=PurePosixPath("archive_path"),
+            archive_path=archive_path,
             reasons=tuple(
                 decision.reason
                 for decision in decisions
@@ -110,7 +118,7 @@ class ArchiveRulePolicy:
             len(self._candidate_rules),
             len(self._candidate_set_rules),
         )
-        
+
         decisions: list[ArchiveDecision] = []
 
         for candidate in candidates:

@@ -1,11 +1,12 @@
 import argparse
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 from pipeline_path import PipelinePath
 
 from archiver.analysis.infrastructure.filesystem import FilesystemScanner
 from archiver.analysis.use_cases import BuildArchivePlanUseCase
+from archiver.archive.path_builders import DefaultArchivePathBuilder
 from archiver.rules.archive_rules import ArchiveWorkFilesRule, KeepLastVersionsRule
 from archiver.rules.decision_resolver import ArchiveDecisionResolver, ArchiveRulePolicy
 
@@ -16,9 +17,15 @@ def build_archive_plan_use_case() -> BuildArchivePlanUseCase:
             ArchiveWorkFilesRule(),
         ],
         candidate_set_rules=[
-            KeepLastVersionsRule(number_of_versions_to_keep=2),
+            KeepLastVersionsRule(
+                number_of_versions_to_keep=2
+            ),
         ],
-        resolver=ArchiveDecisionResolver(),
+        resolver=ArchiveDecisionResolver(
+            archive_path_builder=DefaultArchivePathBuilder(
+                archive_root=PurePosixPath("archives"),
+            ),
+        ),
     )
 
     return BuildArchivePlanUseCase(
