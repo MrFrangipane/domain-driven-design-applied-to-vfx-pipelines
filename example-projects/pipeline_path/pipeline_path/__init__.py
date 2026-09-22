@@ -7,6 +7,7 @@ from pipeline_path.api import (
     Shot,
     Task,
     Version,
+    VersionFamilyKey,
     WorkType,
 )
 from pipeline_path.domain.exceptions import PipelinePathError
@@ -21,5 +22,6 @@ __all__ = [
     "Shot",
     "Task",
     "Version",
+    "VersionFamilyKey",
     "WorkType",
 ]

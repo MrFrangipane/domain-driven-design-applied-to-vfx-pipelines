@@ -90,12 +90,39 @@ class Version:
 
 
 @dataclass(frozen=True)
+class VersionFamilyKey:
+    """
+    Stable grouping key for all versions of the same pipeline item.
+
+    This intentionally excludes Version.
+
+    Examples:
+    - all work versions of dragon/sq010/sh020/lighting share one key;
+    - all publish versions of dragon/sq010/sh020/lighting share another key;
+    - asset and shot paths do not collide because their entity objects differ.
+    """
+    project: Project
+    entity: Shot | Asset
+    task: Task
+    work_type: WorkType
+
+
+@dataclass(frozen=True)
 class TaskVersionIdentity:
     project: Project
     entity: Shot | Asset
     task: Task
     version: Version
     work_type: WorkType
+
+    @property
+    def version_family_key(self) -> VersionFamilyKey:
+        return VersionFamilyKey(
+            project=self.project,
+            entity=self.entity,
+            task=self.task,
+            work_type=self.work_type,
+        )
 
 
 @dataclass(frozen=True)
@@ -107,3 +134,7 @@ class ParsedPath:
     """
     extension: str
     identity: TaskVersionIdentity
+
+    @property
+    def version_family_key(self) -> VersionFamilyKey:
+        return self.identity.version_family_key

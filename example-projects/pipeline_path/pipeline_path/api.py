@@ -11,6 +11,7 @@ from pipeline_path.domain.entities import (
     Task,
     TaskVersionIdentity,
     Version,
+    VersionFamilyKey,
     WorkType,
 )
 from pipeline_path.infrastructure.path_templates import PathTemplates
@@ -99,5 +100,6 @@ __all__ = [
     "Task",
     "TaskVersionIdentity",
     "Version",
+    "VersionFamilyKey",
     "WorkType",
 ]
