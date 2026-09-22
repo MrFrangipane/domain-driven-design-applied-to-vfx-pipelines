@@ -11,9 +11,9 @@ show/
     │           └── design/
     │               ├── publish/
     │               │   ├── v001/
-    │               │   │   └── an-awesome-show_character_joe_design_v001.psd
+    │               │   │   └── an-awesome-show_character_joe_design_v001.png
     │               │   └── v002/
-    │               │       └── an-awesome-show_character_joe_design_v002.psd
+    │               │       └── an-awesome-show_character_joe_design_v002.png
     │               └── work/
     │                   ├── v001/
     │                   │   └── an-awesome-show_character_joe_design_v001.psd
