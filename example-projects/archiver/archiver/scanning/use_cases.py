@@ -2,10 +2,10 @@ from pathlib import Path
 
 from pipeline_path import PipelinePath, PipelinePathError
 
-from archiver.analysis.infrastructure.filesystem import FilesystemScanner
-from archiver.archive.entities import ArchivePlan, ArchivePlanItem
+from archiver.planning.entities import ArchivePlan, ArchivePlanItem
 from archiver.rules.decision_resolver import ArchiveRulePolicy
 from archiver.rules.entities import ArchiveCandidate
+from archiver.scanning.filesystem import FilesystemScanner
 
 
 class BuildArchivePlanUseCase:

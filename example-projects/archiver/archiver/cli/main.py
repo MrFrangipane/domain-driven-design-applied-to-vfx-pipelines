@@ -4,11 +4,11 @@ from pathlib import Path, PurePosixPath
 
 from pipeline_path import PipelinePath
 
-from archiver.analysis.infrastructure.filesystem import FilesystemScanner
-from archiver.analysis.use_cases import BuildArchivePlanUseCase
-from archiver.archive.path_builders import DefaultArchivePathBuilder
+from archiver.planning.path_builders import DefaultArchivePathBuilder
 from archiver.rules.archive_rules import ArchiveWorkFilesRule, KeepLastVersionsRule
 from archiver.rules.decision_resolver import ArchiveDecisionResolver, ArchiveRulePolicy
+from archiver.scanning.filesystem import FilesystemScanner
+from archiver.scanning.use_cases import BuildArchivePlanUseCase
 
 
 def build_archive_plan_use_case() -> BuildArchivePlanUseCase:

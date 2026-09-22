@@ -1,7 +1,7 @@
 import logging
 from collections.abc import Sequence
 
-from archiver.archive.ports import ArchivePathBuilder
+from archiver.planning.ports import ArchivePathBuilder
 from archiver.rules.entities import ArchiveCandidate, ArchiveDecision, ArchiveMark, ResolvedArchiveDecision
 from archiver.rules.ports import CandidateRule, CandidateSetRule
 
