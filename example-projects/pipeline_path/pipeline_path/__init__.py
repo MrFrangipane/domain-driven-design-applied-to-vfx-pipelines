@@ -1,5 +1,6 @@
 from pipeline_path.api import (
     Asset,
+    EntityType,
     ParsedPath,
     PipelinePath,
     Project,
@@ -14,6 +15,7 @@ from pipeline_path.domain.exceptions import PipelinePathError
 
 __all__ = [
     "Asset",
+    "EntityType",
     "PipelinePath",
     "PipelinePathError",
     "ParsedPath",

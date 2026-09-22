@@ -26,6 +26,7 @@ classifiers = [
     "Topic :: Desktop Environment",
 ]
 dependencies = [
+    "pipeline-path",
     "PySide6>=6.11.2",
 ]
 
@@ -51,3 +52,6 @@ line-ending = "auto"
 
 [tool.setuptools.packages.find]
 include = ["browser*"]
+
+[tool.uv.sources]
+pipeline-path = { path = "../pipeline_path", editable = true }

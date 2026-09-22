@@ -4,6 +4,7 @@ from pipeline_path.application.build_path import BuildPathUseCase
 from pipeline_path.application.parse_path import ParsePathUseCase
 from pipeline_path.domain.entities import (
     Asset,
+    EntityType,
     ParsedPath,
     Project,
     Sequence,
@@ -92,6 +93,7 @@ class PipelinePath:
 
 __all__ = [
     "Asset",
+    "EntityType",
     "ParsedPath",
     "PipelinePath",
     "Project",
