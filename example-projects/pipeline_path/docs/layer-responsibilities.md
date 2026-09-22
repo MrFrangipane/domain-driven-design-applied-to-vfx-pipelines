@@ -3,7 +3,7 @@
 This package follows a simple layered structure:
 
 ```text
-library_path/
+pipeline_path/
 ├── domain/
 ├── application/
 ├── infrastructure/

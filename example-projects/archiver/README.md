@@ -2,7 +2,7 @@
 
 `archiver` is the second concrete example in this repository.
 
-It shows a clean DDD-style starting point for the **CLI archiver**. It uses `library_path` to parse each discovered file, applies archive rules, and produces an **archive plan** without moving files yet.
+It shows a clean DDD-style starting point for the **CLI archiver**. It uses `pipeline_path` to parse each discovered file, applies archive rules, and produces an **archive plan** without moving files yet.
 
 Folder structure:
 
@@ -40,7 +40,7 @@ The workflow is:
 
 1. CLI receives a root folder.
 2. Analysis walks all files under that folder.
-3. Each file is parsed using `library_path`.
+3. Each file is parsed using `pipeline_path`.
 4. Rules decide whether the file should be archived.
 5. A plan is produced.
 6. The plan is printed as JSON.

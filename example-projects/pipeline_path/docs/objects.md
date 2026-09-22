@@ -14,7 +14,7 @@ Task(name="lighting")
 Version(number=12)
 ```
 
-The package also includes `ParsedPath`, which represents the result of reading a known library path back into these
+The package also includes `ParsedPath`, which represents the result of reading a known pipeline path back into these
 domain objects.
 
 These objects are small, but they already express useful rules.

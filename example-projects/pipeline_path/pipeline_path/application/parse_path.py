@@ -1,6 +1,6 @@
 from pathlib import PurePosixPath
 
-from library_path.domain.entities import (
+from pipeline_path.domain.entities import (
     Asset,
     EntityType,
     ParsedPath,
@@ -12,8 +12,8 @@ from library_path.domain.entities import (
     Version,
     WorkType,
 )
-from library_path.domain.exceptions import PathParseError
-from library_path.infrastructure.template_path_parser import TemplatePathParser
+from pipeline_path.domain.exceptions import PathParseError
+from pipeline_path.infrastructure.template_path_parser import TemplatePathParser
 
 
 class ParsePathUseCase:

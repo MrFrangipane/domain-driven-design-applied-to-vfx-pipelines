@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from library_path.domain.entities import Asset, Shot, WorkType
-from library_path.domain.exceptions import PathTemplateNotFoundError
+from pipeline_path.domain.entities import Asset, Shot, WorkType
+from pipeline_path.domain.exceptions import PathTemplateNotFoundError
 
 
 @dataclass(frozen=True)

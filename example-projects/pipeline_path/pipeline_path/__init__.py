@@ -1,7 +1,7 @@
-from library_path.api import (
+from pipeline_path.api import (
     Asset,
-    LibraryPath,
     ParsedPath,
+    PipelinePath,
     Project,
     Sequence,
     Shot,
@@ -9,12 +9,12 @@ from library_path.api import (
     Version,
     WorkType,
 )
-from library_path.domain.exceptions import LibraryPathError
+from pipeline_path.domain.exceptions import PipelinePathError
 
 __all__ = [
     "Asset",
-    "LibraryPath",
-    "LibraryPathError",
+    "PipelinePath",
+    "PipelinePathError",
     "ParsedPath",
     "Project",
     "Sequence",

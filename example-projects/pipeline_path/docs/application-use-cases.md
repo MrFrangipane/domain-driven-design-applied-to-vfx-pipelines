@@ -10,7 +10,7 @@ and:
 
 The application layer coordinates these operations.
 
-External tools normally use the public `LibraryPath` API class instead of constructing these use cases directly. This page
+External tools normally use the public `PipelinePath` API class instead of constructing these use cases directly. This page
 shows the use cases to explain how the application layer works internally.
 
 It does **not represent a production concept itself**. Instead, it answers workflow questions:
@@ -28,9 +28,9 @@ A use case is useful because it gives the rest of the software one clear operati
 For example:
 
 ```python
-from library_path.application.build_path import BuildPathUseCase
-from library_path.domain.entities import Project, Sequence, Shot, Task, Version, WorkType
-from library_path.infrastructure.path_templates import PathTemplates
+from pipeline_path.application.build_path import BuildPathUseCase
+from pipeline_path.domain.entities import Project, Sequence, Shot, Task, Version, WorkType
+from pipeline_path.infrastructure.path_templates import PathTemplates
 
 
 build_path = BuildPathUseCase(
@@ -63,9 +63,9 @@ This produces:
 The opposite operation is parsing a known path back into production data:
 
 ```python
-from library_path.application.parse_path import ParsePathUseCase
-from library_path.infrastructure.path_templates import PathTemplates
-from library_path.infrastructure.template_path_parser import TemplatePathParser
+from pipeline_path.application.parse_path import ParsePathUseCase
+from pipeline_path.infrastructure.path_templates import PathTemplates
+from pipeline_path.infrastructure.template_path_parser import TemplatePathParser
 
 
 templates = PathTemplates.default_vfx_templates()

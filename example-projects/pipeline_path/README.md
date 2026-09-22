@@ -1,18 +1,18 @@
-# Library Path
+# Pipeline Path
 
-`library_path` is the first concrete example in this repository.
+`pipeline_path` is the first concrete example in this repository.
 
 It shows how a small VFX pipeline library can be organized using the first ideas of Domain-Driven Design, or DDD.
 
 The goal of this package is simple:
 
-> Build valid filesystem paths for shots and assets, and parse known library paths back into production data.
+> Build valid filesystem paths for shots and assets, and parse known pipeline paths back into production data.
 
 For example, given a project, shot, task, version, work type, and file extension, the library can produce a path such
 as:
 
 ```text
-/show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/dragon_sq010_sh020_lighting_v012.abc
+show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/dragon_sq010_sh020_lighting_v012.abc
 ```
 
 This is intentionally a small example. The point is not to build a complete studio path system, but to show how DDD
@@ -60,14 +60,14 @@ This package demonstrates a few DDD ideas:
 
 The example is deliberately simple, but the structure is close to what you could use in a larger pipeline codebase.
 
-External tools usually interact with the package through a configured `LibraryPath` instance:
+External tools usually interact with the package through a configured `PipelinePath` instance:
 
 ```python
-from library_path import LibraryPath
+from pipeline_path import PipelinePath
 
-library_path = LibraryPath.default()
+pipeline_path = PipelinePath.default()
 
-path = library_path.build_shot_path(
+path = pipeline_path.build_shot_path(
     project="dragon",
     sequence="sq010",
     shot="sh020",

@@ -2,7 +2,7 @@ import argparse
 import json
 from pathlib import Path
 
-from library_path import LibraryPath
+from pipeline_path import PipelinePath
 
 from archiver.analysis.infrastructure.filesystem import FilesystemScanner
 from archiver.analysis.use_cases import BuildArchivePlanUseCase
@@ -18,7 +18,7 @@ def build_archive_plan_use_case() -> BuildArchivePlanUseCase:
     )
 
     return BuildArchivePlanUseCase(
-        library_path=LibraryPath.default(),
+        pipeline_path=PipelinePath.default(),
         rule_policy=rule_policy,
         scanner=FilesystemScanner(),
     )
@@ -27,7 +27,7 @@ def build_archive_plan_use_case() -> BuildArchivePlanUseCase:
 def main() -> None:
     parser = argparse.ArgumentParser(
         prog="archiver",
-        description="Build an archive plan for files matching library_path templates.",
+        description="Build an archive plan for files matching pipeline_path templates.",
     )
     parser.add_argument(
         "root",

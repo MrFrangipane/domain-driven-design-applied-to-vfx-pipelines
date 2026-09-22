@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import StrEnum
 
-from library_path.domain.exceptions import InvalidPathDataError
+from pipeline_path.domain.exceptions import InvalidPathDataError
 
 
 class EntityType(StrEnum):
@@ -101,7 +101,7 @@ class TaskVersionIdentity:
 @dataclass(frozen=True)
 class ParsedPath:
     """
-    Result of parsing a library path back into domain data.
+    Result of parsing a pipeline path back into domain data.
 
     The entity can be either a Shot or an Asset.
     """

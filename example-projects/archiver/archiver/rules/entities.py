@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 
-from library_path import ParsedPath
+from pipeline_path import ParsedPath
 
 
 @dataclass(frozen=True)

@@ -1,6 +1,6 @@
 from pathlib import PurePosixPath
 
-from library_path import WorkType
+from pipeline_path import WorkType
 
 from archiver.rules.entities import RuleContext, RuleDecision
 from archiver.rules.ports import ArchiveRulePort
@@ -17,12 +17,12 @@ class ArchiveWorkFilesRule(ArchiveRulePort):
                 reason="Only work files are archived.",
             )
 
-        source_library_path = PurePosixPath(context.source_path.as_posix())
+        source_pipeline_path = PurePosixPath(context.source_path.as_posix())
 
-        if source_library_path.is_absolute():
-            source_library_path = source_library_path.relative_to("/")
+        if source_pipeline_path.is_absolute():
+            source_pipeline_path = source_pipeline_path.relative_to("/")
 
-        archive_path = self._archive_root / source_library_path
+        archive_path = self._archive_root / source_pipeline_path
 
         return RuleDecision(
             should_archive=True,

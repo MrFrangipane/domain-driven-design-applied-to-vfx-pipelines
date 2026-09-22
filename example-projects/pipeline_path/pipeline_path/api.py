@@ -1,8 +1,8 @@
 from pathlib import PurePosixPath
 
-from library_path.application.build_path import BuildPathUseCase
-from library_path.application.parse_path import ParsePathUseCase
-from library_path.domain.entities import (
+from pipeline_path.application.build_path import BuildPathUseCase
+from pipeline_path.application.parse_path import ParsePathUseCase
+from pipeline_path.domain.entities import (
     Asset,
     ParsedPath,
     Project,
@@ -13,13 +13,13 @@ from library_path.domain.entities import (
     Version,
     WorkType,
 )
-from library_path.infrastructure.path_templates import PathTemplates
-from library_path.infrastructure.template_path_parser import TemplatePathParser
+from pipeline_path.infrastructure.path_templates import PathTemplates
+from pipeline_path.infrastructure.template_path_parser import TemplatePathParser
 
 
-class LibraryPath:
+class PipelinePath:
     """
-    Public API for building and parsing library paths.
+    Public API for building and parsing paths.
 
     External tools can create one configured instance and reuse it instead of
     constructing use cases for every operation.
@@ -32,13 +32,13 @@ class LibraryPath:
         )
 
     @classmethod
-    def default(cls) -> "LibraryPath":
+    def default(cls) -> "PipelinePath":
         return cls(
             templates=PathTemplates.default_vfx_templates(),
         )
 
     @classmethod
-    def from_templates(cls, templates: PathTemplates) -> "LibraryPath":
+    def from_templates(cls, templates: PathTemplates) -> "PipelinePath":
         return cls(templates=templates)
 
     def build_shot_path(
@@ -91,8 +91,8 @@ class LibraryPath:
 
 __all__ = [
     "Asset",
-    "LibraryPath",
     "ParsedPath",
+    "PipelinePath",
     "Project",
     "Sequence",
     "Shot",

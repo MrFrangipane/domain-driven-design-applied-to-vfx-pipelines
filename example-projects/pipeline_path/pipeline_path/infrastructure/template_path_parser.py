@@ -2,8 +2,8 @@ import re
 from dataclasses import dataclass
 from pathlib import PurePosixPath
 
-from library_path.domain.entities import WorkType, EntityType
-from library_path.infrastructure.path_templates import PathTemplates
+from pipeline_path.domain.entities import WorkType, EntityType
+from pipeline_path.infrastructure.path_templates import PathTemplates
 
 
 @dataclass(frozen=True)

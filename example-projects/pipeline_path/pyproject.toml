@@ -3,9 +3,9 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "library_path"
+name = "pipeline-path"
 version = "0.1.0"
-description = "Library Path from the DDD for VFX Introduction"
+description = "Python library handling Paths from the DDD for VFX Introduction"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "GPL-3.0-or-later" }
@@ -47,4 +47,4 @@ indent-style = "space"
 line-ending = "auto"
 
 [tool.setuptools.packages.find]
-include = ["library_path*"]
+include = ["pipeline_path*"]

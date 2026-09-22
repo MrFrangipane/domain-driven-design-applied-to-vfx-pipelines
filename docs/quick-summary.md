@@ -12,7 +12,7 @@ Instead of starting with databases, frameworks, file paths, or UI widgets, DDD e
 
 When applying DDD as a team, it can help to split the work into two clear phases.
 
-#### 1. Focus on the problem
+#### 1. Focus on the problem (strategic phase)
 
 Start by understanding the production problem before discussing implementation details.
 
@@ -31,7 +31,7 @@ For example:
 - where confusion, manual work, or repeated mistakes happen;
 - which words mean different things to different teams.
 
-#### 2. Focus on the solution
+#### 2. Focus on the solution (tactical phase)
 
 Once the problem is understood, move into solution design and implementation.
 

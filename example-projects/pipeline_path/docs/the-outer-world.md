@@ -36,23 +36,23 @@ The package also exposes a simpler public API for other tools.
 
 This API is useful because external tools do not need to know about use cases, template classes, or internal folders.
 
-They only need to create a `LibraryPath` instance and call methods for the operation they want to perform.
+They only need to create a `PipelinePath` instance and call methods for the operation they want to perform.
 
 A tool can use the default VFX templates:
 
 ```python
-from library_path import LibraryPath
+from pipeline_path import PipelinePath
 
-library_path = LibraryPath.default()
+pipeline_path = PipelinePath.default()
 ```
 
 Or it can create an instance from explicit templates:
 
 ```python
-from library_path import LibraryPath
-from library_path.infrastructure.path_templates import PathTemplates
+from pipeline_path import PipelinePath
+from pipeline_path.infrastructure.path_templates import PathTemplates
 
-library_path = LibraryPath.from_templates(
+pipeline_path = PipelinePath.from_templates(
     PathTemplates.a_way_to_create_templates(),
 )
 ```
@@ -63,11 +63,11 @@ Instead of forcing a Maya tool, browser, or archiver to know the internal packag
 public API object:
 
 ```python
-from library_path import LibraryPath
+from pipeline_path import PipelinePath
 
-library_path = LibraryPath.default()
+pipeline_path = PipelinePath.default()
 
-path = library_path.build_shot_path(
+path = pipeline_path.build_shot_path(
     project="dragon",
     sequence="sq010",
     shot="sh020",
@@ -89,11 +89,11 @@ show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/dragon_sq010_sh020
 There is also an asset path method:
 
 ```python
-from library_path import LibraryPath
+from pipeline_path import PipelinePath
 
-library_path = LibraryPath.default()
+pipeline_path = PipelinePath.default()
 
-path = library_path.build_asset_path(
+path = pipeline_path.build_asset_path(
     project="dragon",
     asset_type="character",
     asset="wyvern",
@@ -114,14 +114,14 @@ Example output:
 
 ### Parsing
 
-The public API can also parse a known library path back into domain data:
+The public API can also parse a known pipeline path back into domain data:
 
 ```python
-from library_path import LibraryPath
+from pipeline_path import PipelinePath
 
-library_path = LibraryPath.default()
+pipeline_path = PipelinePath.default()
 
-parsed = library_path.parse_path(
+parsed = pipeline_path.parse_path(
     "show/dragon/sequences/sq010/shots/sh020/lighting/publish/v012/"
     "dragon_sq010_sh020_lighting_v012.abc"
 )

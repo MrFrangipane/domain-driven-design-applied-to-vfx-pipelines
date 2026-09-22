@@ -30,7 +30,7 @@ domain-driven-design-applied-to-vfx-pipelines/
 ├── docs/
 │   └── quick-summary.md    a quick introduction to DDD
 ├── example-projects/
-│   ├── library_path/       a first example of basic DDD principles
+│   ├── pipeline_path/       a first example of basic DDD principles
 │   ├── archiver/           dive more into ports and adapters
 │   └── browser/            ...
 └── README.md               this file
@@ -47,9 +47,9 @@ domain-driven-design-applied-to-vfx-pipelines/
 - Bounded Contexts
 - Application, domain, infrastructure, and presentation layers
 
-### 1. [First example: A Path Library](example-projects/library_path/)
+### 1. [First example: A Path Library](example-projects/pipeline_path/)
 
-[A Python project](example-projects/library_path/) that contains code examples that demonstrates how to separate production
+[A Python project](example-projects/pipeline_path/) that contains code examples that demonstrates how to separate production
 concepts and rules from UI, filesystem, and external service concerns.
 
 The examples are organized to show how these parts can be separated, ensuring that production rules do not get buried

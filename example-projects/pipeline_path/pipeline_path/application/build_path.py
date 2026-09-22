@@ -1,8 +1,8 @@
 from pathlib import PurePosixPath
 
-from library_path.domain.entities import Asset, Project, Shot, Task, Version, WorkType
-from library_path.domain.exceptions import InvalidPathDataError
-from library_path.infrastructure.path_templates import PathTemplates
+from pipeline_path.domain.entities import Asset, Project, Shot, Task, Version, WorkType
+from pipeline_path.domain.exceptions import InvalidPathDataError
+from pipeline_path.infrastructure.path_templates import PathTemplates
 
 
 class BuildPathUseCase:
