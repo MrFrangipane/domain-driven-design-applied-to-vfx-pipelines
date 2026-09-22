@@ -171,6 +171,6 @@ For further information about the Domain Driven Design approach used in this pro
 
 A [document](docs/ddd-mapping.md) that maps the Archiver's classes to the DDD concepts.
 
-### [Relationship to `pipeline_path`](docs/relationship-to-pipeline-path.md)
+### [Relationship to `pipeline_path`](docs/relationship-to-pipeline_path.md)
 
 A [document](docs/relationship-to-pipeline-path.md) that explains the relationship between the `pipeline_path` and the Archiver.
