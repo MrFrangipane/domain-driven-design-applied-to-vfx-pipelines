@@ -173,4 +173,4 @@ A [document](docs/ddd-mapping.md) that maps the Archiver's classes to the DDD co
 
 ### [Relationship to `pipeline_path`](docs/relationship-to-pipeline_path.md)
 
-A [document](docs/relationship-to-pipeline-path.md) that explains the relationship between the `pipeline_path` and the Archiver.
+A [document](docs/relationship-to-pipeline_path.md) that explains the relationship between the `pipeline_path` and the Archiver.
